@@ -6,13 +6,13 @@
 /*   By: jibang <jibang@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 20:15:57 by jibang            #+#    #+#             */
-/*   Updated: 2022/06/13 22:55:42 by jibang           ###   ########.fr       */
+/*   Updated: 2022/06/18 13:03:49 by jibang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../push_swap.h"
 
-void	stacking(t_list **op_stk, char *opp)
+static void	stacking(t_list **op_stk, char *opp)
 {
 	t_list	*tmp = NULL;
 	char	*op = ft_strdup(opp);
@@ -26,33 +26,39 @@ void	stacking(t_list **op_stk, char *opp)
 	ft_lstadd_back(op_stk, tmp);
 }
 
+static void	ops_case_for_a(t_list **op_stk, char *op)
+{
+	if (ft_strncmp(op, "s", 2) == 0)
+		stacking(op_stk, "sa");
+	else if (ft_strncmp(op, "p", 2) == 0)
+		stacking(op_stk, "pa");
+	else if (ft_strncmp(op, "rr", 3) == 0)
+		stacking(op_stk, "rra");
+	else if (ft_strncmp(op, "r", 2) == 0)
+		stacking(op_stk, "ra");
+}
+
+static void	ops_case_for_b(t_list **op_stk, char *op)
+{
+	if (ft_strncmp(op, "s", 2) == 0)
+		stacking(op_stk, "sb");
+	else if (ft_strncmp(op, "p", 2) == 0)
+		stacking(op_stk, "pb");
+	else if (ft_strncmp(op, "rr", 3) == 0)
+		stacking(op_stk, "rrb");
+	else if (ft_strncmp(op, "r", 2) == 0)
+		stacking(op_stk, "rb");
+}
+
 void	ft_stack_ops(t_list **op_stk, char *op, char *stk)
 {
-	if (ft_strncmp(stk, "a", 1) == 0)
+	if (ft_strncmp(stk, "a", 2) == 0)
+		ops_case_for_a(op_stk, op);
+	else if (ft_strncmp(stk, "b", 2) == 0)
+		ops_case_for_b(op_stk, op);
+	else if (ft_strncmp(stk, "ab", 3) == 0)
 	{
-		if (ft_strncmp(op, "s", 1) == 0)
-			stacking(op_stk, "sa");
-		if (ft_strncmp(op, "p", 1) == 0)
-			stacking(op_stk, "pa");
-		if (ft_strncmp(op, "r", 1) == 0)
-			stacking(op_stk, "ra");
-		if (ft_strncmp(op, "rr", 2) == 0)
-			stacking(op_stk, "rra");
-	}
-	if (ft_strncmp(stk, "b", 1) == 0)
-	{
-		if (ft_strncmp(op, "s", 1) == 0)
-			stacking(op_stk, "sb");
-		if (ft_strncmp(op, "p", 1) == 0)
-			stacking(op_stk, "pb");
-		if (ft_strncmp(op, "r", 1) == 0)
-			stacking(op_stk, "rb");
-		if (ft_strncmp(op, "rr", 2) == 0)
-			stacking(op_stk, "rrb");
-	}
-	if (ft_strncmp(stk, "r", 1) == 0)
-	{
-		if (ft_strncmp(op, "rr", 2) == 0)
+		if (ft_strncmp(op, "rr", 3) == 0)
 			stacking(op_stk, "rrr");
 	}
 }

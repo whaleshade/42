@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jibang <jibang@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/08 16:21:44 by jibang            #+#    #+#             */
-/*   Updated: 2022/06/13 20:54:10 by jibang           ###   ########.fr       */
+/*   Created: 2022/03/17 20:01:38 by jibang            #+#    #+#             */
+/*   Updated: 2022/06/18 20:35:55 by jibang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "libft.h"
 
-
-# include "./libft/libft.h"
-typedef struct s_cnt
+t_list	*ft_lstlast(t_list *lst)
 {
-	int		pa;
-	int		pb;
-	int		ra;
-	int		rb;
-	int		sa;
-	int		sb;
-	int		rra;
-	int		rrb;
-} t_cnt;
-
-#endif
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
