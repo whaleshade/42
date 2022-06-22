@@ -1,14 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jibang <jibang@student.42seoul.kr>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/04 16:52:17 by jibang            #+#    #+#             */
-/*   Updated: 2022/06/19 00:44:33 by jibang           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "push_swap.h"
 
 #include "push_swap.h"
 # include "./parse/parsing.c"
@@ -30,8 +20,6 @@
 # include "./sort_utils/operations2.c"
 
 # define SIZE 1000 //the number we can input upto
-
-
 
 void	main_case_by_case(t_list **op, t_list **a, t_list **b, int k)
 {
@@ -76,13 +64,41 @@ int	main_parse(int ac, char **av, int *parsed, int *k)
 	return (0);
 }
 
-void	put_ops(t_list *op)
+
+int	ft_checker(t_list *lst, int k)
+{
+	int		i;
+	int		x;
+	int		idx;
+
+	i = 0;
+	x = *(int *)lst->content;
+	while (i < k)
+	{
+		idx = *(int *)lst->content;
+		if (x != idx)
+		{
+			ft_printf("KO\n");
+			exit(0);
+		}
+		x++;
+		lst = lst->next;
+		i++;
+	}
+	ft_printf("OK\n");
+	return (1);
+}
+
+void	put_ops(t_list *op, t_list *a)
 {
 	int		i;
 	t_list	*tmp3 = NULL;
 	char	*s = NULL;
+	int		k;
 
 	i = 0;
+	tmp3 = a;
+	k = ft_lstsize(tmp3);
 	tmp3 = op;
 	while (tmp3)
 	{
@@ -91,7 +107,9 @@ void	put_ops(t_list *op)
 		tmp3 = tmp3->next;
 		i++;
 	}
+	ft_checker(a, k);
 }
+
 
 int	main(int ac, char *av[])
 {
@@ -117,6 +135,7 @@ int	main(int ac, char *av[])
 		main_case_by_case(&stack.op, &stack.a, &stack.b, v.k);
 	else
 		logic_on_a(&stack, v.k, 0);
-	put_ops(stack.op);
+	put_ops(stack.op, stack.a);
 	return (0);
 }
+
